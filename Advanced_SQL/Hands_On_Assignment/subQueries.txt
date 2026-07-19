@@ -1,0 +1,80 @@
+-- Question 1
+SELECT empno, ename, deptno
+FROM emp
+WHERE deptno = (
+    SELECT deptno
+    FROM emp
+    WHERE ename = 'SMITH'
+);
+-- Question 2
+SELECT *
+FROM emp
+WHERE sal > (
+    SELECT AVG(sal)
+    FROM emp
+);
+-- Question 3
+SELECT ename, job
+FROM emp e
+WHERE EXISTS (
+    SELECT *
+    FROM emp m
+    WHERE m.mgr = e.empno
+);
+-- Question 4
+SELECT *
+FROM emp
+WHERE sal < ALL (
+    SELECT sal
+    FROM emp
+    WHERE deptno = 10
+);
+-- Question 5
+SELECT *
+FROM emp
+WHERE (deptno, mgr) = (
+    SELECT deptno, mgr
+    FROM emp
+    WHERE ename = 'SMITH'
+)
+AND ename <> 'SMITH';
+-- Question 6
+SELECT empno, ename
+FROM emp
+WHERE deptno IN (
+    SELECT deptno
+    FROM emp
+    WHERE ename LIKE '%R%'
+);
+-- Question 7
+SELECT ename, deptno, job
+FROM emp
+WHERE deptno IN (
+    SELECT deptno
+    FROM dept
+    WHERE loc = 'NEW YORK'
+);
+-- Question 8
+SELECT ename, deptno, job
+FROM emp
+WHERE deptno IN (
+    SELECT deptno
+    FROM dept
+    WHERE loc = '&loc'
+);
+-- Question 9
+SELECT ename, sal
+FROM emp
+WHERE mgr = (
+    SELECT empno
+    FROM emp
+    WHERE ename = 'KING'
+);
+-- Question 10
+SELECT empno, ename, deptno
+FROM emp
+WHERE deptno = (
+    SELECT deptno
+    FROM emp
+    WHERE ename = 'JAMES'
+);
